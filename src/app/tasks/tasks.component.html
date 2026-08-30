@@ -1,0 +1,59 @@
+<ActionBar class="action-bar">
+  <NavigationButton visibility="hidden"></NavigationButton>
+  <GridLayout columns="50, *">
+    <Label class="action-bar-title" text="Tareas" colSpan="2"></Label>
+    <Label class="fas" text="&#xf0c9;" (tap)="onDrawerButtonTap()"></Label>
+  </GridLayout>
+</ActionBar>
+
+<GridLayout rows="auto, auto, *" class="tasks-page" [class]="platformClass">
+  <StackLayout row="0" class="tasks-header" orientation="horizontal">
+    <Image class="tasks-header__icon" src="res://icon_tasks" stretch="aspectFit"></Image>
+    <Label class="tasks-header__title" text="Mis tareas del curso" verticalAlignment="center"></Label>
+  </StackLayout>
+
+  <Label
+    row="1"
+    class="tasks-platform-note"
+    [text]="platformNote"
+    [visibility]="platformNote ? 'visible' : 'collapsed'"
+    textWrap="true"
+  ></Label>
+
+  <ScrollView row="2">
+    <StackLayout class="tasks-list">
+      <!-- Requisito 7: uso de *ngFor -->
+      <GridLayout
+        *ngFor="let task of tasks$ | async"
+        columns="auto, *, auto"
+        rows="auto, auto"
+        class="task-card"
+        [class.-done]="task.done"
+        (tap)="onTaskTap(task)"
+      >
+        <Label
+          col="0"
+          rowSpan="2"
+          class="task-card__check fas"
+          [text]="task.done ? '&#xf058;' : '&#xf111;'"
+          verticalAlignment="center"
+          (tap)="onToggle(task)"
+        ></Label>
+
+        <Label col="1" row="0" class="task-card__title" [text]="task.title" textWrap="true"></Label>
+        <Label col="1" row="1" class="task-card__detail" [text]="task.detail" textWrap="true"></Label>
+
+        <Label
+          col="2"
+          rowSpan="2"
+          class="task-card__badge"
+          [class.-alta]="task.priority === 'alta'"
+          [class.-media]="task.priority === 'media'"
+          [class.-baja]="task.priority === 'baja'"
+          [text]="task.priority"
+          verticalAlignment="center"
+        ></Label>
+      </GridLayout>
+    </StackLayout>
+  </ScrollView>
+</GridLayout>

@@ -35,7 +35,7 @@ export class AppComponent implements OnInit {
   }
 
   isComponentSelected(url: string): boolean {
-    return this._activatedUrl === url
+    return this._activatedUrl === url || this._activatedUrl.startsWith(`${url}/`)
   }
 
   onNavItemTap(navItemRoute: string): void {

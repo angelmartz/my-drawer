@@ -21,6 +21,10 @@ const routes: Routes = [
     loadChildren: () => import('~/app/featured/featured.module').then((m) => m.FeaturedModule),
   },
   {
+    path: 'tasks',
+    loadChildren: () => import('~/app/tasks/tasks.module').then((m) => m.TasksModule),
+  },
+  {
     path: 'settings',
     loadChildren: () => import('~/app/settings/settings.module').then((m) => m.SettingsModule),
   },

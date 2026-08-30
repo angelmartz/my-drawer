@@ -1,0 +1,35 @@
+<ActionBar class="action-bar">
+  <NavigationButton visibility="hidden"></NavigationButton>
+  <GridLayout columns="50, *">
+    <Label class="action-bar-title" text="Detalle de tarea" colSpan="2"></Label>
+    <Label class="fas" text="&#xf0c9;" (tap)="onDrawerButtonTap()"></Label>
+  </GridLayout>
+</ActionBar>
+
+<ScrollView class="page__content">
+  <StackLayout padding="20" *ngIf="task; else notFound">
+    <Label [text]="task.title" class="h2" textWrap="true" fontWeight="bold"></Label>
+    <Label [text]="'Prioridad: ' + task.priority" class="body" marginTop="8"></Label>
+    <Label
+      [text]="task.done ? 'Estado: completada' : 'Estado: pendiente'"
+      class="body"
+      marginTop="4"
+    ></Label>
+    <Label [text]="task.detail" class="body" textWrap="true" marginTop="16"></Label>
+
+    <Button
+      [text]="task.done ? 'Marcar como pendiente' : 'Marcar como completada'"
+      (tap)="onToggle()"
+      class="-primary"
+      marginTop="24"
+    ></Button>
+    <Button [text]="backLabel" (tap)="goBack()" class="-outline" marginTop="8"></Button>
+  </StackLayout>
+
+  <ng-template #notFound>
+    <StackLayout padding="20">
+      <Label text="No se encontró la tarea solicitada." textWrap="true"></Label>
+      <Button [text]="backLabel" (tap)="goBack()" class="-outline" marginTop="16"></Button>
+    </StackLayout>
+  </ng-template>
+</ScrollView>
